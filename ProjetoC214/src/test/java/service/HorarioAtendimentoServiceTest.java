@@ -140,3 +140,26 @@ class HorarioAtendimentoServiceTest {
         assertEquals(-1, horario.determinarPredio());
     }
 }
+
+@Test
+void testObterHorario_SalaExatamenteLimite() {
+    String json = "{\"nomeDoProfessor\":\"Dr. Borges\",\"horarioDeAtendimento\":\"10h-12h\",\"periodo\":\"integral\",\"sala\":5,\"predio\":[1]}";
+    Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
+    
+    HorarioAtendimento horario = service.obterHorario();
+    assertNotNull(horario);
+    assertEquals(5, horario.getSala());
+    assertEquals(1, horario.determinarPredio());
+}
+
+@Test
+void testObterHorario_SalaMuitoAlta() {
+    String json = "{\"nomeDoProfessor\":\"Dra. Santos\",\"horarioDeAtendimento\":\"14h-16h\",\"periodo\":\"vespertino\",\"sala\":200,\"predio\":[40]}";
+    Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
+    
+    HorarioAtendimento horario = service.obterHorario();
+    assertNotNull(horario);
+    assertEquals(200, horario.getSala());
+    assertEquals(40, horario.determinarPredio());
+}
+}
