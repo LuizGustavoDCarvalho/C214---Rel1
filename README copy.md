@@ -1,9 +1,8 @@
-# Projeto - Teste Unitário com Mock (C214)
+# Projeto - Teste Unitário com Mock
 
 ### Alunos:
-- Nome do Aluno 1 - Matrícula
-- Nome do Aluno 2 (opcional) - Matrícula
-- Nome do Aluno 3 (opcional) - Matrícula
+- Luiz Gustavo Domingues de Carvalho- 1614 GEC
+
 
 ---
 
