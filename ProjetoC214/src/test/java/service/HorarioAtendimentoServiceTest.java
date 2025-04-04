@@ -61,7 +61,7 @@ class HorarioAtendimentoServiceTest {
     // 10 casos de sucesso
     @Test
     void testObterHorario_Sucesso() {
-        String json = "{\"nomeDoProfessor\":\"Dr. Silva\",\"horarioDeAtendimento\":\"10h-12h\",\"periodo\":\"integral\",\"sala\":3,\"predio\":[1]}";
+        String json = "{\"nomeDoProfessor\":\"Renzo\",\"horarioDeAtendimento\":\"10h-12h\",\"periodo\":\"integral\",\"sala\":3,\"predio\":[1]}";
         Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
         
         HorarioAtendimento horario = service.obterHorario();
@@ -72,7 +72,7 @@ class HorarioAtendimentoServiceTest {
     
     @Test
     void testObterHorario_SalaMaxima() {
-        String json = "{\"nomeDoProfessor\":\"Dr. Souza\",\"horarioDeAtendimento\":\"14h-16h\",\"periodo\":\"noturno\",\"sala\":99,\"predio\":[20]}";
+        String json = "{\"nomeDoProfessor\":\"Carlos Alberto Ynoguti\",\"horarioDeAtendimento\":\"14h-16h\",\"periodo\":\"noturno\",\"sala\":99,\"predio\":[20]}";
         Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
 
         HorarioAtendimento horario = service.obterHorario();
@@ -83,7 +83,7 @@ class HorarioAtendimentoServiceTest {
     
     @Test
     void testObterHorario_SalaMinima() {
-        String json = "{\"nomeDoProfessor\":\"Dra. Lima\",\"horarioDeAtendimento\":\"8h-10h\",\"periodo\":\"matutino\",\"sala\":1,\"predio\":[1]}";
+        String json = "{\"nomeDoProfessor\":\"Carlos Nazareth Motta Marins\",\"horarioDeAtendimento\":\"8h-10h\",\"periodo\":\"matutino\",\"sala\":1,\"predio\":[1]}";
         Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
 
         HorarioAtendimento horario = service.obterHorario();
@@ -94,7 +94,7 @@ class HorarioAtendimentoServiceTest {
     
     @Test
     void testObterHorario_PeriodoNoturno() {
-        String json = "{\"nomeDoProfessor\":\"Dr. Xavier\",\"horarioDeAtendimento\":\"18h-20h\",\"periodo\":\"noturno\",\"sala\":15,\"predio\":[3]}";
+        String json = "{\"nomeDoProfessor\":\"Dayan Adionel Guimarães\",\"horarioDeAtendimento\":\"18h-20h\",\"periodo\":\"noturno\",\"sala\":15,\"predio\":[3]}";
         Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
 
         HorarioAtendimento horario = service.obterHorario();
@@ -132,7 +132,7 @@ class HorarioAtendimentoServiceTest {
 
     @Test
     void testObterHorario_SalaNegativa() {
-        String json = "{\"nomeDoProfessor\":\"Dr. Cardoso\",\"horarioDeAtendimento\":\"13h-15h\",\"periodo\":\"vespertino\",\"sala\":-5,\"predio\":[0]}";
+        String json = "{\"nomeDoProfessor\":\"Eduardo Esteves Zanin\",\"horarioDeAtendimento\":\"13h-15h\",\"periodo\":\"vespertino\",\"sala\":-5,\"predio\":[0]}";
         Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
         
         HorarioAtendimento horario = service.obterHorario();
@@ -143,7 +143,7 @@ class HorarioAtendimentoServiceTest {
 
 @Test
 void testObterHorario_SalaExatamenteLimite() {
-    String json = "{\"nomeDoProfessor\":\"Dr. Borges\",\"horarioDeAtendimento\":\"10h-12h\",\"periodo\":\"integral\",\"sala\":5,\"predio\":[1]}";
+    String json = "{\"nomeDoProfessor\":\"Francisco Martins Portelinha Junior\",\"horarioDeAtendimento\":\"10h-12h\",\"periodo\":\"integral\",\"sala\":5,\"predio\":[1]}";
     Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
     
     HorarioAtendimento horario = service.obterHorario();
@@ -154,7 +154,7 @@ void testObterHorario_SalaExatamenteLimite() {
 
 @Test
 void testObterHorario_SalaMuitoAlta() {
-    String json = "{\"nomeDoProfessor\":\"Dra. Santos\",\"horarioDeAtendimento\":\"14h-16h\",\"periodo\":\"vespertino\",\"sala\":200,\"predio\":[40]}";
+    String json = "{\"nomeDoProfessor\":\"José Marcos Camara Brito\",\"horarioDeAtendimento\":\"14h-16h\",\"periodo\":\"vespertino\",\"sala\":200,\"predio\":[40]}";
     Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(json);
     
     HorarioAtendimento horario = service.obterHorario();
