@@ -10,6 +10,7 @@ class HorarioAtendimento {
     private List<Integer> predio;
 
     public int determinarPredio() {
+        if (sala < 1) return -1; // Caso de erro para salas inválidas
         return (sala - 1) / 5 + 1;
     }
 
@@ -29,6 +30,9 @@ class HorarioAtendimentoService {
 
     public HorarioAtendimento obterHorario() {
         String json = remoteServer.getHorarioAtendimento();
+        if (json == null || json.trim().isEmpty()) {
+            throw new IllegalArgumentException("JSON recebido é inválido ou vazio");
+        }
         return gson.fromJson(json, HorarioAtendimento.class);
     }
 }
@@ -65,7 +69,7 @@ class HorarioAtendimentoServiceTest {
         assertEquals(3, horario.getSala());
         assertEquals(1, horario.determinarPredio());
     }
-
+    
     @Test
     void testObterHorario_SalaMaxima() {
         String json = "{\"nomeDoProfessor\":\"Dr. Souza\",\"horarioDeAtendimento\":\"14h-16h\",\"periodo\":\"noturno\",\"sala\":99,\"predio\":[20]}";
@@ -76,7 +80,7 @@ class HorarioAtendimentoServiceTest {
         assertEquals(99, horario.getSala());
         assertEquals(20, horario.determinarPredio());
     }
-
+    
     @Test
     void testObterHorario_SalaMinima() {
         String json = "{\"nomeDoProfessor\":\"Dra. Lima\",\"horarioDeAtendimento\":\"8h-10h\",\"periodo\":\"matutino\",\"sala\":1,\"predio\":[1]}";
@@ -87,7 +91,7 @@ class HorarioAtendimentoServiceTest {
         assertEquals(1, horario.getSala());
         assertEquals(1, horario.determinarPredio());
     }
-
+    
     @Test
     void testObterHorario_PeriodoNoturno() {
         String json = "{\"nomeDoProfessor\":\"Dr. Xavier\",\"horarioDeAtendimento\":\"18h-20h\",\"periodo\":\"noturno\",\"sala\":15,\"predio\":[3]}";
@@ -97,7 +101,7 @@ class HorarioAtendimentoServiceTest {
         assertNotNull(horario);
         assertEquals("noturno", horario.periodo);
     }
-
+    
     // 10 casos de falha
     @Test
     void testObterHorario_FalhaJsonInvalido() {
@@ -110,17 +114,18 @@ class HorarioAtendimentoServiceTest {
 
     @Test
     void testObterHorario_JsonVazio() {
-        Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn("{}");
+        Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn("");
         
-        HorarioAtendimento horario = service.obterHorario();
-        assertNotNull(horario);
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.obterHorario();
+        });
     }
 
     @Test
     void testObterHorario_JsonNulo() {
         Mockito.when(remoteServerMock.getHorarioAtendimento()).thenReturn(null);
         
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             service.obterHorario();
         });
     }
@@ -132,6 +137,6 @@ class HorarioAtendimentoServiceTest {
         
         HorarioAtendimento horario = service.obterHorario();
         assertNotNull(horario);
-        assertTrue(horario.getSala() < 0);
+        assertEquals(-1, horario.determinarPredio());
     }
 }
